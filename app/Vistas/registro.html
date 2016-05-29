@@ -1,0 +1,63 @@
+
+		<!--Contenido de la página registro-->
+		<script type="text/javascript" src="recursos/js/iniciarFacebook.js"></script>
+		<div class="content">
+			<div class="center-block">
+				<h3 class="encabezado">Registro</h3><br>
+				<div class="row">
+					<form action="index.php?controlador=usuarios&act=registrar" id="formulario" method="post" name="registrar" class="form-horizontal col-xs-offset-1 col-xs-10 col-xs-offset-1 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4" role="form" novalidate>
+						<div class="form-group">
+							<label for="nombre" >Nombre </label>
+							<input name="nombre" id="nombre" class="form-control" type="text" placeholder="Juan López Ortega"  />
+							<span id="errorNombre" class="clsError"></span>
+						</div>
+						<div class="form-group">
+							<label for="correo" >Correo </label>
+							<input name="correo" id="correo" class="form-control" type="email" placeholder="alguien@ejemplo.com" />
+							<span id="errorCorreo" class="clsError"></span>
+						</div>
+						<div class="form-group">
+							<label for="contrasena" >Contraseña </label><br>
+							<span>  *La contraseña debe contener valores alfanuméricos (a-z A-Z 0-9) y con <b>longitud minima de 6</b> caracteres.</span>
+							<input name="contrasena" id="contrasena" class="form-control" type="password" placeholder="contraseña" />
+							<span id="errorContrasena" class="clsError"></span>
+						</div>
+						<div class="form-group">
+							<label for="rptContrasena" >Repetir contraseña </label>
+							<input name="rptContrasena" id="rptContrasena" class="form-control" type="password" placeholder="contraseña" />
+							<span id="errorRptContrasena" class="clsError"></span>
+						</div><br>
+						<!-- Problema -->
+						<div class="form-group text-center">
+							<button id="registro" class="btn btn-primary" type="submit">Registrarse</button>
+						</div>
+						<div class="form-group text-center">
+							<div class="fb-login-button" data-max-rows="1" data-size="large" data-show-faces="false" data-auto-logout-link="false"
+									 scope="public_profile,email" onlogin="checkLoginState();" type="submit"></div>
+							<!--fb:login-button class="btn" scope="public_profile,email" onlogin="checkLoginState();" type="submit"></fb:login-button-->
+						</div>
+					</form>
+
+
+					<div id="status">
+					</div>
+					<div class="form-group col-xs-offset-1 col-xs-10  col-sm-offset-2 col-sm-8 col-md-offset-3 col-md- col-lg-offset-4 col-lg-4">
+						<span>¿Ya estás registrado?</span>
+						<a class="btn btn-link" href="index.php?controlador=usuarios&act=sesion"><b>Inicia Sesión</b></a>
+					</div>
+
+					<div class="form-group col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
+						<button id="twitter" type="button" class="btn btn-block btn-social btn-twitter">
+							<span class="fa fa-twitter"></span> Registrate con Twitter
+	  					</button>
+	  					<button id="facebook" type="button" class="btn btn-block btn-social btn-facebook fb-login-button"
+							 data-show-faces="false" data-auto-logout-link="false">
+							<span class="fa fa-facebook"></span> Registrate con Facebook
+	  					</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="recursos/js/jQuery/jquery-1.11.min.js"></script>
+		<script type="text/javascript" src="recursos/js/valida.js" ></script>
+	</body>

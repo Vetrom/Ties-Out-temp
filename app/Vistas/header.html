@@ -1,0 +1,88 @@
+		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="btn navbar-toggle collapsed" id="inicia" href="sesion.php" >
+				    	<span class="glyphicon glyphicon-log-in"></span>
+					</a>
+					<!--a class="btn navbar-toggle collapsed" id="salirS" href="index.php" >
+			      		<span class="glyphicon glyphicon-log-out"></span>
+			      	</a-->
+				    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+				            data-target=".navbar-ex1-collapse">
+				      <span class="sr-only">Desplegar navegación</span>
+				      <span class="icon-bar"></span>
+				      <span class="icon-bar"></span>
+				      <span class="icon-bar"></span>
+				    </button>
+				    <a class="navbar-brand" href="index.php">
+				    	<img alt="Brand" src="recursos/img/logoTieOut.png">
+				    </a>
+				    <a id="tiesOut" class="navbar-brand" href="index.php">TIES-OUT</a>
+			  	</div>
+
+			  <!-- Agrupar los enlaces de navegación, los formularios y cualquier
+			       otro elemento que se pueda ocultar al minimizar la barra -->
+			  <div class="collapse navbar-collapse navbar-ex1-collapse">
+			    <ul class="nav navbar-nav">
+			      <li><a class="head" href="index.php?controlador=general&act=btrabajo">BUSCAR EMPLEO</a></li>
+			      <li class="dropdown">
+			        <a class="head dropdown-toggle" href="#" data-toggle="dropdown">
+			          CURSOS <b class="caret"></b>
+			        </a>
+			        <ul class="dropdown-menu">
+			          <li><a href="index.php?controlador=cursos&act=mostrar&idcurso=1">Árboles</a></li>
+			          <li><a href="index.php?controlador=cursos&act=mostrar&idcurso=2">Métodos de ordenamiento</a></li>
+			          <li><a href="#">Algoritmos de búsqueda</a></li>
+			          <li class="divider"></li>
+			          <li><a href="#"></a></li>
+			        </ul>
+			      </li>
+			      <li><a class="head" href="index.php?controlador=general&act=contacto">CONTACTO</a></li>
+			      <li><a class="head" href="index.php?controlador=general&act=nosotros">NOSOTROS</a></li>
+				  <li id="miscursos"><a class="head" href="misCursos.php">MIS CURSOS</a></li>
+			    </ul>
+
+			 	 <ul class="nav navbar-nav navbar-right login">
+					 <!--{iniciodesconectado}-->
+			      	<li id="registro"><a href="index.php?controlador=usuarios&act=registro">Registrate</a></li>
+			      	<li id="entrar">
+			      		<a class="btn" id="sesion" href="index.php?controlador=usuarios&act=sesion" >Iniciar sesión</a>
+			      		<a class="btn" id="inicia" href="index.php?controlador=usuarios&act=sesion" >
+			      			<span class="glyphicon glyphicon-log-in"></span>
+			      		</a>
+			      	</li>
+					<!--{findesconectado}-->
+			      	<!--{inicioconectado}-->
+			      	<li id="infoUser">
+			           <a class="dropdown-toggle" data-toggle="dropdown" role="button">
+		                <div class="img-circle profile-img"></div>
+		                <!--{nombreUsuario}-->
+		              </a>
+		         	</li>
+			      	<li id="confPerfil">
+		            	<a href="configurarPerfil.php">
+			               	<span class="glyphicon glyphicon-cog"></span>
+			      		</a>
+			      	</li>
+			      	<li id="salir">
+			      		<a id="tsesion" href="index.php" >Salir</a>
+			      		<a id="salirS" href="index.php" >
+			      			<span class="glyphicon glyphicon-log-out"></span>
+			      		</a>
+			      	</li>
+			      	<!--{finconectado}-->
+			    </ul>
+
+			    <form class="navbar-form navbar-right" role="search">
+			      	<div class="input-group">
+			        	<input type="text" class="form-control" placeholder="e.j. Árboles binarios">
+						<span class="input-group-btn">
+							<a class="btn btn-default" href="index.php?controlador=general&act=busqueda">
+								<span class="glyphicon glyphicon-search"></span>
+							</a>
+						</span>
+			      	</div>
+			    </form>
+			  </div>
+		  </div>
+		</nav>

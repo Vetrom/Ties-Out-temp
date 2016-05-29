@@ -1,0 +1,135 @@
+	
+.animated {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeInUp {
+	0% {
+	    opacity: 0;
+	    transform: translateY(20px);
+	}
+	100% {
+	    opacity: 1;
+	    transform: translateY(0px);
+	}
+}
+
+.fadeInUp {
+    animation-name: fadeInUp;
+}
+
+
+.grid {
+    list-style: outside none none;
+    margin: 0 auto;
+    position: relative;
+    text-align: center;
+}
+.grid figure {
+    cursor: pointer;
+    float: left;
+    margin: 0;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    width: 33.3333%;
+}
+.grid figure img {
+    display: block;
+    /*max-width: 102%;*/
+    opacity: 1;
+    position: relative;
+    max-width: 50%;
+    max-height: 50%;
+    left: 25%;
+    right: 25%;
+}
+.grid figure figcaption {
+    backface-visibility: hidden;
+    color: #fff;
+    font-size: 1.25em;
+    padding: 2em;
+    text-transform: uppercase;
+}
+.grid figure figcaption::before, .grid figure figcaption::after {
+    pointer-events: none;
+}
+.grid figure figcaption, .grid figure figcaption > a {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+.grid figure figcaption > a {
+    font-size: 0;
+    opacity: 0;
+    text-indent: 200%;
+    white-space: nowrap;
+    z-index: 1000;
+}
+.grid figure h2 {
+    font-weight: 700;
+    word-spacing: -0.15em;
+}
+.grid figure h2, .grid figure p {
+    margin: 0;
+}
+.grid figure p {
+    font-size: 68.5%;
+    letter-spacing: 1px;
+}
+
+figure.effect {
+}
+figure.effect figcaption {
+    padding: 15%;
+}
+figure.effect figcaption::before {
+    border: 1px solid #fff;
+    bottom: 30px;
+    content: "";
+    left: 30px;
+    position: absolute;
+    right: 30px;
+    top: 30px;
+}
+figure.effect h2 {
+    line-height: 1em;
+    margin: 0;
+    transform: translate3d(0px, 100%, 0px);
+    transition: transform 0.35s ease 0s;
+}
+figure.effect figcaption::before, figure.effect p {
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.35s ease 0s, transform 0.35s ease 0s;
+}
+figure.effect:hover h2 {
+    transform: translate3d(0px, 0px, 0px);
+}
+figure.effect:hover figcaption::before, figure.effect:hover p {
+    opacity: 1;
+    transform: scale(1);
+}
+figure.effect:hover figcaption {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+figure.effect:hover img {
+    opacity: 0.5;
+}
+@media screen and (max-width: 50em) {
+.content {
+    padding: 0 10px;
+    text-align: center;
+}
+.grid figure {
+    width: 50%;
+}
+}
+@media (max-width: 639px) {
+.grid figure {
+    width: 100%;
+}
+}

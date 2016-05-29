@@ -1,0 +1,531 @@
+/*--------------------------------------------------------------------------
+----                             GENERALES                              ----
+--------------------------------------------------------------------------*/
+	html, body {
+			width: 100%;
+			margin: 0 auto -60px;
+			padding: 0;
+			bottom: 0;
+	}
+
+	@media screen and (min-width:320px) and (max-width: 800px){
+		.slide,#tiesOut,#sesion,#tsesion,#inscribete span,#entrar,#salir{
+			display: none;
+		}
+		div.text-center img.img-circle{
+			width: 100;
+			height: 100;
+		}
+		h1{
+			font-size:  .5em;
+		}
+		div.text-center .parrafo{
+			font-size:  1.2em;
+		}
+		#inscribete{
+			background-color: white;
+			padding: 0;
+			margin:0;
+			position: relative;
+			top:2.3em;
+			width: 100%;
+			left: auto;
+			text-align: right;;
+		}
+		#inicia{
+			color: #FFF;
+			background-color: #912D00;
+			font-size: 1em;
+		}
+		#salirS{
+			color: #FFF;
+			background-color: #912D00;
+			font-size: 1em;
+		}
+		div.content{
+			width: 70%;
+		}
+		#img, #datos{
+			clear: both;
+			width: 100%;
+		}
+		nav.navbar{
+			position:absolute;
+		}
+		#footertips {
+			font-size: .8em;
+		}
+	}
+	@media screen and (min-width:801px) and (max-width:1000px){
+		.slide,#tiesOut,#sesion, #tsesion{
+			display: none;
+		}
+		#inicia{
+			color: #FFF;
+			background-color: #912D00;
+			font-size: 1em;
+		}
+		#salirS{
+			color: #FFF;
+			background-color: #912D00;
+			font-size: 1em;
+		}
+		div.text-center img.img-circle{
+			width: 135;
+			height: 135;
+		}
+		h1{
+			font-size:  .1em;
+		}
+		div.text-center .parrafo{
+			font-size:  1.7em;
+		}
+		#inscribete span{
+			display: none;
+		}
+		#inscribete{
+			background-color: white;
+			padding: 0;
+			margin:0;
+			position: relative;
+			top:4.5em;
+			width: 100%;
+			left: auto;
+			text-align: right;;
+		}
+		#footertips {
+			font-size: 1em;
+		}
+	}
+	@media screen and (min-width:1001px) and (max-width:1238px){
+		#sesion{
+			display: none;
+		}
+		#inicia{
+			color: #FFF;
+			background-color: #912D00;
+			font-size: 1em;
+		}
+		#tsesion{
+			display: none;
+		}
+		#salirS{
+			color: #FFF;
+			background-color: #912D00;
+			font-size: 1em;
+		}
+	}
+	@media screen and (min-width: 1239px){
+		#inicia{
+			display: none;
+		}
+		#salirS{
+			display: none;
+		}
+	}
+
+/*--------------------------------------------------------------------------
+----                               MENU                                 ----
+--------------------------------------------------------------------------*/
+	.container-fluid{
+		height:70px;
+		padding-top:10px;
+	}
+	.container-fluid .navbar-header .navbar-brand{
+		font-size: 40px;
+	}
+	.container-fluid .navbar-header .navbar-brand img{
+		height: 40px;
+		padding-bottom: 10px;
+	}
+	.container-fluid .navbar-collapse{
+		background-color: #f8f8f8;
+	}
+	.head{
+		font-size: 15px;
+	}
+	.container-fluid .navbar-form div input {
+		width: 100%;
+	}
+	.login a {
+		font-size: 18px;
+	}
+	#sesion {
+		color: #FFF;
+		background-color: #912D00;
+	}
+	.profile-img{/*imagen de perfil*/
+    	margin-top: -5px;
+    	margin-right: 5px;
+    	float: left;
+    	background: url("recursos/img/logoTieOut.png") 50% 50% no-repeat;
+    	background-size: auto 100%;
+    	width: 30px;
+    	height: 30px;
+	}
+	#infoUser, #confPerfil, #salirS, #miscursos, #tsesion{
+			display: inline;
+		}
+/*--------------------------------------------------------------------------
+----                             CONTENIDO                              ----
+--------------------------------------------------------------------------*/
+	.content {
+		margin-top: 80px;
+		margin-left: 15%;
+		margin-bottom: 1em;
+		width: 70%;
+		-webkit-box-shadow: 0px 0px 21px -2px rgba(0,0,0,0.49);
+		-moz-box-shadow: 0px 0px 21px -2px rgba(0,0,0,0.49);
+		box-shadow: 0px 0px 21px -2px rgba(0,0,0,0.49);
+		border-bottom: 0;
+	}
+
+	.parrafo{
+		font-size: 2em;
+		font-family: Helvetica;
+		text-align: justify;
+	}
+	.marketing .row{
+		margin: 1em;
+	}
+	div.marketing, div.container{
+		width: 100%;
+	}
+
+/*--------------------------------------------------------------------------
+----                               FOOTERS                              ----
+--------------------------------------------------------------------------*/
+	#footertips {
+		height: auto;
+		bottom: 0;
+		background-color: #319972;
+		padding: .5em 0em .5em 0em;
+		text-align: center;
+		font-size: 1.4em;
+		color: white;
+	}
+	#footertips b{
+		color: #6B2100;
+		font-size: 1.5em;
+	}
+	#footer{
+		font-size: 1.3em;
+	}
+
+/*--------------------------------------------------------------------------
+----                            ENCABEZADOS                             ----
+--------------------------------------------------------------------------*/
+	.encabezado{
+		background-color: #2F7802;
+		padding: 1em 1em 1em 1em;
+		color: #FFF;
+		margin-bottom: 1em;
+	}
+	.subencabezado{
+		padding-left: 4em;
+		padding-right: 4em;
+		text-align: justify;
+	}
+	.subencabezado p{
+		font-size: 1.4em;
+		line-height: 1.4em;
+		padding-bottom: 1.4em;
+	}
+	.subencabezado p::first-letter{
+		padding-left: 1em;
+	}
+
+/*--------------------------------------------------------------------------
+----                              PERFIL                                ----
+--------------------------------------------------------------------------*/
+	.infoPersonal, .cursosCompletados{
+		padding-left: 3em;
+		padding-right: 3em;
+	}
+	.foto{
+		padding-left: 10%;
+		padding-right: 10%;
+	}
+	.listaInfo{
+		border-top: 1px solid black;
+
+	}
+	.listaInfo span{
+		font-size: 18px;
+	}
+	#fotoperfil{
+		max-width: 100%;
+	}
+	.actions{
+		border-top: 1px solid black;
+		text-align: center;
+	}
+
+	.actions a{
+		color: black;
+	}
+
+/*--------------------------------------------------------------------------
+----                               SESION                               ----
+--------------------------------------------------------------------------*/
+
+	.centrado{
+		padding-left: 30%;
+		border:1px solid black;
+	}
+	.clsError{
+		display: none;
+		color: red;
+		font-size: 1.2em;
+	}
+	.campoError{
+		border-color: red;
+	}
+
+/*--------------------------------------------------------------------------
+----                         CONFIGURAR PERFIL                          ----
+--------------------------------------------------------------------------*/
+	.btn-file {
+		position: relative;
+	    overflow: hidden;
+	    cursor: pointer;
+	}
+	.btn-file input[type=file] {
+	    top: 0;
+	    margin: 0;
+	    outline: 0;
+	    padding: 0;
+	    font-size: 1000px;
+	    opacity: 0;
+	    position: absolute;
+	    cursor: pointer;
+	    right: 0;
+	    max-width: 100%;
+	    max-height: 100%;
+	    text-align: right;
+	    background: white;
+	    display: block;
+	}
+	h3.col-xs-offset-2{
+		color: #702100;
+		text-decoration: underline;
+		font-weight: bold;
+	}
+	body.droppable .profile-avatar-wrap {
+	  	border: 5px dashed lightblue;
+	  	z-index: 9999;
+	}
+	.profile-avatar-wrap {
+	  	width: 33.33%;
+	  	float: left;
+	  	margin: 0 20px 5px 0;
+	  	position: relative;
+	  	pointer-events: none;
+	  	border: 5px solid transparent;
+	}
+	.profile-avatar-wrap:after {
+	  	/* Drag Prevention */
+	  	content: "";
+	  	position: absolute;
+	  	top: 0;
+	  	left: 0;
+	  	width: 100%;
+	  	height: 100%;
+	}
+	.profile-avatar-wrap img {
+	  	width: 100%;
+	  	display: block;
+	}
+		/*estilos de la pagina de Nosotros*/
+	.nombre{
+		padding-left: 2em;
+		font-size: 2em;
+		color: #702100;
+		font-weight: bold;
+	}
+	.encabezado2{
+		padding-left: 1em;
+		color: #607891;
+		font-weight: bold;
+	}
+
+/*--------------------------------------------------------------------------
+----                              ALUMNOS                               ----
+--------------------------------------------------------------------------*/
+	div.table-responsive{
+		width:90%;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	.botones{
+		text-align: right;
+		font-size: 2em;
+	}
+
+/*--------------------------------------------------------------------------
+----                       REPERTORIO DE CURSOS                         ----
+--------------------------------------------------------------------------*/
+	.repertorio .row{
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	.repertorio{
+		padding-bottom: 3em;
+		width: 90%;
+		margin-left: 5%;
+		margin-right: 5%;
+	}
+	.content.repertorio p, .content.repertorio h3, a, .verde, .cafe, .naranja, .azul{
+		color:white;
+	}
+	.cursos div{
+		 height: 15em;
+	}
+	.verde, .cafe, .naranja, .azul{
+		text-align: center;
+	}
+	.verde{
+		background-color: #138F60;
+	}
+	.cafe{
+		background-color: #E39C48;
+	}
+	.naranja{
+		background-color: #E37848;
+	}
+	.azul{
+		background-color: #337090;
+	}
+	.azul h3, .verde h3, .naranja h3, .cafe h3{
+		font-weight: bold;
+	}
+	h1.text-center {
+		margin: 1.5em;
+		font-size: 3em;
+	}
+	@media screen and (max-width: 440px){
+		#logo{
+			display: none;
+		}
+	}
+
+/*--------------------------------------------------------------------------
+----                                 CURSOS                             ----
+--------------------------------------------------------------------------*/
+	.content2 {
+		margin-top: 80px;
+		margin-left: 20%;
+		margin-bottom: 1em;
+		width: 70%;
+		-webkit-box-shadow: 0px 0px 21px -2px rgba(0,0,0,0.49);
+		-moz-box-shadow: 0px 0px 21px -2px rgba(0,0,0,0.49);
+		box-shadow: 0px 0px 21px -2px rgba(0,0,0,0.49);
+		border-bottom: 0;
+	}
+	.contenido {
+	   	padding: 3em;
+	   	width: 100%;
+	   	display: inline-block;
+	   	text-align: left;
+	   	font-size: 1.5em;
+	}
+	.contenido p::first-letter{
+		padding-left: 1em;
+	}
+	.contenido p{
+		padding-bottom: 1.5em;
+	}
+	.contenido h3{
+		font-size: 1.8em;
+		color: #ce7601;
+	}
+	#titulo_contenido {
+	   	border-collapse: collapse;
+	   	padding: .5em .5em .5em .5em;
+	   	margin: 10;
+	   	display: inline-block;
+	   	border-radius: 2em;
+	   	width:60%;
+	   	display: inline-block;
+	   	color: #ad5600;
+	}
+	#tablaContenido{
+		top: 5em;
+		left: .5em;
+		position: fixed;
+		width: 18em;
+		background-color: #EBEBEB;
+		text-align: center;
+	    font-size: 1.2em;
+	    font-weight: bold;
+	}
+	#tablaContenido li{
+		padding-bottom: .5em;
+		padding-top: .5em;
+	}
+	#inscribete {
+	   	right: 2em;
+	   	padding:1em;
+	   	top: 5em;
+	   	position: fixed;
+	   	opacity: 0.9;
+	   	background-color: #ebebeb;
+	   	text-align: center;
+	   	font-size: 1.4em;
+	   	font-weight: bold;
+	   	resize: none;
+	}
+	#fuente {
+	   	padding: .5em 6em .5em 7em;
+	   	width: 100%;
+	   	display: inline-block;
+	   	text-align: left;
+	   	color: #4b4b4b;
+	}
+	#lista {
+		text-align: left;
+		padding-bottom: 1em;
+	}
+	#lista > li{
+		padding-bottom: .5em;
+	}
+	#temas{
+	    text-align: left;
+	}
+	.navegar{
+	    font-size: 1.5em;
+	    padding-left: 1.5em;
+	    padding-right: 1.5em;
+	    padding-bottom: 1.5em;
+	}
+	h1 {
+		width: 95%;
+	    color: #3b3b3b;
+	}
+	@media screen and (min-width: 320px) and (max-width: 1000px){
+		#inscribete{
+			margin: 0;
+			padding: 0;
+			top: em;
+			position: static;
+			background-color: #FFF;
+		}
+		#inscribete span,#tema,#inscribete,#tablaContenido{
+			display: none;
+		}
+		.siguiente{
+			display: block;
+		}
+		.contenido h3, .encabezado h2{
+			font-size: 1.3em;
+		}
+		.contenido p, .contenido ul{
+		 	font-size: .9em;
+		}
+		.content2 {
+			margin-bottom: 1em;
+			width: 90%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+	}
