@@ -16,8 +16,8 @@
 
 		function __construct(){
 			session_start();
-			require('../Modelo/singleton.php');
-			
+			require('Modelo/singleton.php');
+
 
 			$this->instancia = Conexion::getInstance();
 			$this->instancia->__construct();
@@ -29,8 +29,8 @@
 +			/*$this->header = file_get_contents("app/Vistas/header.html");
 +			$this->header = $this->generalctl->headerSesion($this->header);
 			$this->footer = file_get_contents("app/Vistas/footer.html");*/
-			$this->$head = file_get_contents('../Vistas/head.html');
-			$this->$footer = file_get_contents('../Vistas/footer.html');
+			$this->$head = file_get_contents('Vistas/head.html');
+			$this->$footer = file_get_contents('Vistas/footer.html');
 		}
 
 		/**
@@ -246,7 +246,7 @@
 		}
 
 		private function iniciaSesionUsuario(){
-			require('../Modelo/usuarioMdl.php');
+			require('Modelo/usuarioMdl.php');
 			$this->modelo = new UsuarioMdl($this->mysql);
 
 			if(empty($_POST)){
@@ -276,7 +276,7 @@
 +					$_SESSION['nombre'] = $resultado['vchnombre'];
 +
 +					//$this->header = $this->generalctl->headerSesion($this->header);
-					$vista = file_get_contents("../Vistas/panel.html");
+					$vista = file_get_contents("Vistas/panel.html");
 					$diccionario = array(
 					'{tituloPagina}'=>"Inicio",
 					'<!--{masLinks}-->' => '<link rel="stylesheet" type="text/css" href="recursos/js/social/bootstrap-social.css">');
@@ -289,7 +289,7 @@
 			}
 		}
 
-		
+
 		/* Método para mostrar errores o problemas con la información recibida
 		 * @param $string, cadena con el texto a mostrar en la vista. */
 		private function mostrarProblemaIniciosesion($string){
