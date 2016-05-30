@@ -1,0 +1,17 @@
+<div class="container">
+    <h3 class="encabezado">Lista de cursos</h3>
+    <!--{problema}-->
+    <form action="index.php?controlador=cursos&act=guardar" method="post" id="agregarCurso" class="form-horizontal col-xs-12" role="form" novalidate="">
+        <div class="form-group col-xs-12 col-md-6">
+            <label for="titulo">Titulo</label>
+            <input name="titulo" id="titulo" class="form-control" placeholder="Titulo" >
+        </div>
+        <div class="form-group col-xs-12">
+            <label for="contenido">Contenido del curso</label>
+            <textarea name="contenido" id="contenido" class="form-control" placeholder="Escriba aqui..." rows="25"></textarea>
+        </div>
+        <div class="form-group col-xs-12">
+            <button id="guardaCurso" name="guardaCurso" class="btn btn-primary pull-right" type="submit">Guardar</button>
+        </div>
+    </form>
+</div>

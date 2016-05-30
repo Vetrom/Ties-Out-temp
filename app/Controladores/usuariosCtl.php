@@ -9,14 +9,14 @@
 		private $modelo;
 		private $head;
 		private $header;
+		private $headerOriginal;
 		private $footer;
 		private $instancia;
 		private $mysql;
 		private $generalctl;
 
 		function __construct(){
-			session_start();
-			require('app/Modelo/singleton.php');
+			//require('app/Modelo/singleton.php');
 			require('app/Controladores/generalCtl.php');
 
 			$this->instancia = Conexion::getInstance();
@@ -25,9 +25,9 @@
 			$this->mysql = $this->instancia->getConnection();
 
 			$this->generalctl = new General();
-+
-+			$this->header = file_get_contents("app/Vistas/header.html");
-+			$this->header = $this->generalctl->headerSesion($this->header);
+
+			$this->headerOriginal = file_get_contents("app/Vistas/header.html");
+			$this->header = $this->generalctl->headerSesion($this->headerOriginal);
 			$this->footer = file_get_contents("app/Vistas/footer.html");
 			$this->head = file_get_contents("app/Vistas/head.html");
 		}
@@ -70,8 +70,11 @@
 					case 'inicioSesion':
 							$this->iniciaSesionUsuario();
 						break;
+					case 'cerrarSesion':
+							$this->cerrarSesion();
+						break;
 					default:
-							require('404.php');
+							require('404.html');
 						break;
 				}
 			}else{
@@ -87,74 +90,86 @@
 		private function mostrarPerfil($id){
 			/*Conecta al modelo correspondiente para consultar con el ID al usuario*/
 			//require('app/Vistas/perfilPublico.html');
+			if(isset($_SESSION) && !empty($_SESSION)){
+				if($id >= 0){
+					$vista = file_get_contents("app/Vistas/perfilPublico.html");
+					//$footer
 
-			if($id >= 0){
-				$vista = file_get_contents("app/Vistas/perfilPublico.html");
-				//$footer
+					$diccionarioUsuario = array(
+						'{correoUsuario}'   => $_SESSION['correo'],
+						'{nombreUsuario}'   => $_SESSION['nombre'],
+						'{ocupacionUsuario}'=> $_SESSION['ocupacion'],
+						'{cumpleUsuario}'   => $_SESSION['fechaNacimiento']);
 
-				$diccionarioUsuario = array(
-					'{correoUsuario}'=>'dancaballeroc@gmail.com',
-					'{nombreUsuario}'=>'Alfonso Caballero');
-
-				$vista = strtr($vista,$diccionarioUsuario);
+					$vista = strtr($vista,$diccionarioUsuario);
 
 
-				$listaTitulos = array(
-					'Arbol',
-					'Algoritmos',
-					'otro');
+					$listaTitulos = array(
+						'Arbol',
+						'Algoritmos',
+						'otro');
 
-				$listaUrl = array(
-					'app/Vistas/curso1.php',
-					'app/Vistas/curso2.php',
-					'app/Vistas/curso2.php');
+					$listaUrl = array(
+						'app/Vistas/curso1.php',
+						'app/Vistas/curso2.php',
+						'app/Vistas/curso2.php');
 
-				$inicioFila = strrpos($vista,'<!--{iniciaCurso}-->');
-				$finalFila = strrpos($vista,'<!--{terminaCurso}-->')+21;
+					$inicioFila = strrpos($vista,'<!--{iniciaCurso}-->');
+					$finalFila = strrpos($vista,'<!--{terminaCurso}-->')+21;
 
-				$fila = substr($vista,$inicioFila,$finalFila-$inicioFila);
-				$filas = "";
+					$fila = substr($vista,$inicioFila,$finalFila-$inicioFila);
+					$filas = "";
 
-				$i = 0;
+					$i = 0;
 
-				foreach ($listaTitulos as $row) {
-					$newFila = $fila;
+					foreach ($listaTitulos as $row) {
+						$newFila = $fila;
 
-					$diccionario = array(
-						'{urlCurso}'=>$listaUrl[$i],
-						'{colorRandom}'=>'naranja',
-						'{Titulo}'=>$row,
-						'{tituloPagina}'=>"Perfil");
+						$diccionario = array(
+							'{urlCurso}'=>$listaUrl[$i],
+							'{colorRandom}'=>'naranja',
+							'{Titulo}'=>$row,
+							'{tituloPagina}'=>"Perfil");
 
-					$newFila = strtr($newFila, $diccionario);
-					$filas .= $newFila;
-					$i++;
+						$newFila = strtr($newFila, $diccionario);
+						$filas .= $newFila;
+						$i++;
+					}
+
+					$vista = str_replace($fila,$filas, $vista);
+					$this->head = strtr($this->head,$diccionario);
+					$vista = $this->head . $this->header . $vista . $this->footer;
+
+					echo $vista;
+				}else{
+					require('404.html');
 				}
-
-				$vista = str_replace($fila,$filas, $vista);
-				$this->head = strtr($this->head,$diccionario);
-				$vista = $this->head . $this->header . $vista . $this->footer;
-
-				echo $vista;
-			}else{
-				require('404.html');
 			}
 		}
 
 		private function configuraPerfil($id){
-			$vista = file_get_contents('app/Vistas/configurarPerfil.html');
 
-			if($id >= 0){
-				$diccionario = array(
-					'{tituloPagina}'=>"Configurar Perfil");
+			if(isset($_SESSION) && !empty($_SESSION)){
+				$vista = file_get_contents('app/Vistas/configurarPerfil.html');
 
-				$this->head = strtr($this->head,$diccionario);
-				$vista = $this->head . $this->header . $vista . $this->footer;
+				if($id >= 0){
+					$diccionario = array(
+						'{tituloPagina}'=>"Configurar Perfil",
+						'{nombreUsuario}'=>$_SESSION['nombre'],
+						'{correo}'=>$_SESSION['correo']);
 
-				echo $vista;
+					$this->head = strtr($this->head,$diccionario);
+					$vista = strtr($vista,$diccionario);
+					$vista = $this->head . $this->header . $vista . $this->footer;
+
+					echo $vista;
+				}else{
+					require('404.html');
+				}
 			}else{
-				require('404.html');
+				//error no hay sesion iniciada
 			}
+
 		}
 
 		/**
@@ -225,14 +240,18 @@
 					$contrasena = md5($contrasena); //se encripta la contraseña
 					$resultado = $this->modelo->alta($nombre, $correo, $contrasena);//damos de alta en la BD
 					if($resultado!==FALSE){//Si se pudo insertar muestra la vista
-
-						$vista = file_get_contents("app/Vistas/home.html");
-						$diccionario = array(
-						'{tituloPagina}'=>"Inicio",
-						'<!--{masLinks}-->' => '<link rel="stylesheet" type="text/css" href="recursos/js/social/bootstrap-social.css">');
-						$this->head = strtr($this->head,$diccionario);
-						$vista = $this->head . $this->header . $vista . $this->footer;
-						echo $vista;
+						require('correos/confirmarRegistro.php');
+						if($exito == false){
+							$this->mostrarProblemaRegistro("No se pudo enviar el correo");
+						}else{
+							$vista = file_get_contents("app/Vistas/home.html");
+							$diccionario = array(
+							'{tituloPagina}'=>"Inicio",
+							'<!--{masLinks}-->' => '<link rel="stylesheet" type="text/css" href="recursos/js/social/bootstrap-social.css">');
+							$this->head = strtr($this->head,$diccionario);
+							$vista = $this->head . $this->header . $vista . $this->footer;
+							echo $vista;
+						}
 					}
 					else{
 						$this->mostrarProblemaRegistro("No se pudo completar el registro, intente más tarde.");
@@ -270,11 +289,19 @@
 				//Revisa si el usuario existe en la base de datos
 				$resultado = $this->modelo->consultaUsuario($correo, $contrasena);
 				if(!empty($resultado)){
+
 					$_SESSION['correo'] = $correo;
-+					$_SESSION['contrasena'] = $contrasena;
-+					$_SESSION['nombre'] = $resultado['vchnombre'];
-+
-+					$this->header = $this->generalctl->headerSesion($this->header);
+					$_SESSION['contrasena'] = $contrasena;
+					$_SESSION['nombre'] = $resultado['vchNombre'];
+					$_SESSION['idUsuario'] = $resultado['iidUsuario'];
+					$_SESSION['ocupacion'] = $resultado['vchOcupacion'];
+					$_SESSION['fechaNacimiento'] = $resultado['dfechaNacimiento'];
+					$_SESSION['descripcion'] = $resultado['vchdescripcion'];
+					$_SESSION['sexo'] = $resultado['vchSexo'];
+					$_SESSION['rutaFoto'] = $resultado['bRutaFoto'];
+
+
+					$this->header = $this->generalctl->headerSesion($this->headerOriginal);
 					$vista = file_get_contents("app/Vistas/home.html");
 					$diccionario = array(
 					'{tituloPagina}'=>"Inicio",
@@ -285,6 +312,25 @@
 				}else{
 					$this->mostrarProblemaIniciosesion("El usuario y/o contraseña es incorrecto. Intente de nuevo.");
 				}
+			}
+		}
+
+		private function cerrarSesion(){
+			if(isset($_SESSION)){
+				session_unset();
+				session_destroy();
+				setcookie(session_name(), '', time()-3600);
+
+				$vista = file_get_contents("app/Vistas/sesion.html");
+
+				$diccionario = array(
+					'{tituloPagina}'=>"Inicio",
+					'<!--{masLinks}-->' => '<link rel="stylesheet" type="text/css" href="recursos/js/social/bootstrap-social.css">');
+				$this->head = strtr($this->head,$diccionario);
+				$this->header = $this->generalctl->headerSesion($this->headerOriginal);
+				echo $this->head . $this->header . $vista . $this->footer;
+			}else{
+				//No hay sesión iniciada
 			}
 		}
 

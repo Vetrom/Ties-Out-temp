@@ -106,6 +106,17 @@
 	border-color: red;
 }
 
+form#agregarCurso label {
+	font-size: 18px;
+}
+#guardaCurso{
+	font-size: 18px;
+}
+textarea#contenido{
+	resize: none;
+	font-size: 16px;
+}
+
 
 /*-----------------------------------------------------------------------
 ----                          USUARIOS                               ----

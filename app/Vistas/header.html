@@ -1,7 +1,7 @@
 		<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="btn navbar-toggle collapsed" id="inicia" href="sesion.php" >
+					<a class="btn navbar-toggle collapsed" id="inicia" href="index.php?controlador=usuarios&act={banderaSesion}" >
 				    	<span class="glyphicon glyphicon-log-in"></span>
 					</a>
 					<!--a class="btn navbar-toggle collapsed" id="salirS" href="index.php" >
@@ -39,7 +39,7 @@
 			      </li>
 			      <li><a class="head" href="index.php?controlador=general&act=contacto">CONTACTO</a></li>
 			      <li><a class="head" href="index.php?controlador=general&act=nosotros">NOSOTROS</a></li>
-				  <li id="miscursos"><a class="head" href="misCursos.php">MIS CURSOS</a></li>
+				  <li id="miscursos"><a class="head" href="index.php?controlador=cursos&act=miscursos">MIS CURSOS</a></li>
 			    </ul>
 
 			 	 <ul class="nav navbar-nav navbar-right login">
@@ -47,7 +47,7 @@
 			      	<li id="registro"><a href="index.php?controlador=usuarios&act=registro">Registrate</a></li>
 			      	<li id="entrar">
 			      		<a class="btn" id="sesion" href="index.php?controlador=usuarios&act=sesion" >Iniciar sesión</a>
-			      		<a class="btn" id="inicia" href="index.php?controlador=usuarios&act=sesion" >
+			      		<a class="btn" id="inicia" href="index.php?controlador=usuarios&act={banderaSesion}" >
 			      			<span class="glyphicon glyphicon-log-in"></span>
 			      		</a>
 			      	</li>
@@ -60,26 +60,26 @@
 		              </a>
 		         	</li>
 			      	<li id="confPerfil">
-		            	<a href="configurarPerfil.php">
+		            	<a href="index.php?controlador=usuarios&act=configurar&iduser={idUsuario}">
 			               	<span class="glyphicon glyphicon-cog"></span>
 			      		</a>
 			      	</li>
 			      	<li id="salir">
-			      		<a id="tsesion" href="index.php" >Salir</a>
-			      		<a id="salirS" href="index.php" >
+			      		<a id="tsesion" href="index.php?controlador=usuarios&act=cerrarSesion" >Salir</a>
+			      		<a id="salirS" href="index.php?controlador=usuarios&act=cerrarSesion" >
 			      			<span class="glyphicon glyphicon-log-out"></span>
 			      		</a>
 			      	</li>
 			      	<!--{finconectado}-->
 			    </ul>
 
-			    <form class="navbar-form navbar-right" role="search">
+			    <form action="index.php?controlador=general&act=busqueda" method="post" class="navbar-form navbar-right" id="formularioBusqueda" role="search">
 			      	<div class="input-group">
-			        	<input type="text" class="form-control" placeholder="e.j. Árboles binarios">
+			        	<input id="busqueda" type="text" class="form-control" placeholder="e.j. Árboles binarios">
 						<span class="input-group-btn">
-							<a class="btn btn-default" href="index.php?controlador=general&act=busqueda">
+							<button class="btn btn-default" type="submit">
 								<span class="glyphicon glyphicon-search"></span>
-							</a>
+							</button>
 						</span>
 			      	</div>
 			    </form>

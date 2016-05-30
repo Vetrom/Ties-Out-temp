@@ -1,4 +1,7 @@
 <?php
+	
+	session_start();
+	require('app/Modelo/singleton.php');
 	$bandera = false;
 	if(isset($_GET['controlador'])){
 		switch ($_GET['controlador']) {

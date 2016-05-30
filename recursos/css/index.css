@@ -163,9 +163,13 @@
     	width: 30px;
     	height: 30px;
 	}
-	#infoUser, #confPerfil, #salirS, #miscursos, #tsesion{
-			display: inline;
+	/*#infoUser, #confPerfil, #tsesion*/
+	#salirS{
+			display: none;
 		}
+	.tituloBusqueda{ color:#23527C;}
+	.tituloBusqueda + p{ color:#000; font-size: 18px;}
+	.tituloBusqueda:hover{ color:#23527C;}
 /*--------------------------------------------------------------------------
 ----                             CONTENIDO                              ----
 --------------------------------------------------------------------------*/
