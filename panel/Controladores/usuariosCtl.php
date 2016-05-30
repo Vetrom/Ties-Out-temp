@@ -24,13 +24,13 @@
 
 			$this->mysql = $this->instancia->getConnection();
 
-			$this->generalctl = new General();
-+
-+			/*$this->header = file_get_contents("app/Vistas/header.html");
-+			$this->header = $this->generalctl->headerSesion($this->header);
+			//$this->generalctl = new General();
+
+			/*$this->header = file_get_contents("app/Vistas/header.html");
+			$this->header = $this->generalctl->headerSesion($this->header);
 			$this->footer = file_get_contents("app/Vistas/footer.html");*/
-			$this->$head = file_get_contents('Vistas/head.html');
-			$this->$footer = file_get_contents('Vistas/footer.html');
+			$this->head = file_get_contents('Vistas/head.html');
+			$this->footer = file_get_contents('Vistas/footer.html');
 		}
 
 		/**
@@ -272,10 +272,10 @@
 				$resultado = $this->modelo->consultaUsuario($correo, $contrasena);
 				if(!empty($resultado)){
 					$_SESSION['correo'] = $correo;
-+					$_SESSION['contrasena'] = $contrasena;
-+					$_SESSION['nombre'] = $resultado['vchnombre'];
-+
-+					//$this->header = $this->generalctl->headerSesion($this->header);
+					$_SESSION['contrasena'] = $contrasena;
+					$_SESSION['nombre'] = $resultado['vchnombre'];
+
+					//$this->header = $this->generalctl->headerSesion($this->header);
 					$vista = file_get_contents("Vistas/panel.html");
 					$diccionario = array(
 					'{tituloPagina}'=>"Inicio",
@@ -293,7 +293,7 @@
 		/* Método para mostrar errores o problemas con la información recibida
 		 * @param $string, cadena con el texto a mostrar en la vista. */
 		private function mostrarProblemaIniciosesion($string){
-			$vista = file_get_contents('app/Vistas/sesion.html');
+			$vista = file_get_contents('Vistas/home.html');
 			$diccionario = array(
 			'{tituloPagina}'=>"Iniciar sesión",
 			'<!--{masLinks}-->' => '<link rel="stylesheet" type="text/css" href="recursos/js/social/bootstrap-social.css">');
