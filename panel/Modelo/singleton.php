@@ -1,13 +1,12 @@
 <?php
 
 class Conexion {
-	require_once('datos_conexion.inc');
 	private $_connection;
 	private static $_instance; //The single instance
-	private $_host = $servidor;
-	private $_username = $usuario;
-	private $_password = $contrasena;
-	private $_database = $nombreBase;
+	private $_host;
+	private $_username;
+	private $_password;
+	private $_database;
 	/*
 	Get an instance of the Database
 	@return Instance
@@ -19,7 +18,14 @@ class Conexion {
 		return self::$_instance;
 	}
 	// Constructor
-	private function __construct() {
+	function __construct() {
+		require('datos_conexion.inc');
+		$this->_host = $servidor;
+		$this->_username = $usuario;
+		$this->_password = $contrasena;
+		$this->_database = $nombreBase;
+
+
 		$this->_connection = new mysqli($this->_host, $this->_username,
 			$this->_password, $this->_database);
 
