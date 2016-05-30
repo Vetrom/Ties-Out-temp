@@ -4,7 +4,7 @@
 			<h2><img src="../recursos/img/logoTieOut.png" alt="Logo" width="35em" >  TIES-OUT</h2>
 			<h3 class="encabezado text-center">Iniciar Sesión</h3><br>
 			<div class="row">
-				<form method="post" id="formulario" name="loginPanel" class="form-horizontal col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-9 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" role="form" novalidate >
+				<form action="index.php?controlador=usuarios&act=inicioSesion" method="post" id="formulario" name="loginPanel" class="form-horizontal col-xs-offset-1 col-xs-10 col-sm-offset-2 col-sm-9 col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6" role="form" novalidate >
 					<div class="form-group">
 						<label for="correo">Correo </label>
 							<input id="correo" class="form-control" type="email" placeholder="alguien@ejemplo.com" />
@@ -15,7 +15,9 @@
 							<input id="contrasena" class="form-control" type="password" placeholder="contraseña" />
 							<span id="errorContrasena" class="clsError"></span>
 					</div>
-
+					<!-- Problema -->
+					<!-- botones y enlaces -->
+					
 					<div class="form-group text-center">
 							<button id="login" class="btn btn-primary" type="submit">Iniciar sesión</button>
 					</div>

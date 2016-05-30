@@ -16,8 +16,8 @@
 
 		function __construct(){
 			session_start();
-			require('app/Modelo/singleton.php');
-			require('app/Controladores/generalCtl.php');
+			require('../Modelo/singleton.php');
+			
 
 			$this->instancia = Conexion::getInstance();
 			$this->instancia->__construct();
@@ -26,10 +26,11 @@
 
 			$this->generalctl = new General();
 +
-+			$this->header = file_get_contents("app/Vistas/header.html");
++			/*$this->header = file_get_contents("app/Vistas/header.html");
 +			$this->header = $this->generalctl->headerSesion($this->header);
-			$this->footer = file_get_contents("app/Vistas/footer.html");
-			$this->head = file_get_contents("app/Vistas/head.html");
+			$this->footer = file_get_contents("app/Vistas/footer.html");*/
+			$this->$head = file_get_contents('../Vistas/head.html');
+			$this->$footer = file_get_contents('../Vistas/footer.html');
 		}
 
 		/**
@@ -245,7 +246,7 @@
 		}
 
 		private function iniciaSesionUsuario(){
-			require('app/Modelo/usuarioMdl.php');
+			require('../Modelo/usuarioMdl.php');
 			$this->modelo = new UsuarioMdl($this->mysql);
 
 			if(empty($_POST)){
@@ -274,8 +275,8 @@
 +					$_SESSION['contrasena'] = $contrasena;
 +					$_SESSION['nombre'] = $resultado['vchnombre'];
 +
-+					$this->header = $this->generalctl->headerSesion($this->header);
-					$vista = file_get_contents("app/Vistas/home.html");
++					//$this->header = $this->generalctl->headerSesion($this->header);
+					$vista = file_get_contents("../Vistas/panel.html");
 					$diccionario = array(
 					'{tituloPagina}'=>"Inicio",
 					'<!--{masLinks}-->' => '<link rel="stylesheet" type="text/css" href="recursos/js/social/bootstrap-social.css">');
@@ -288,20 +289,7 @@
 			}
 		}
 
-		/* Método para mostrar errores o problemas con la información recibida
-		 * @param $string, cadena con el texto a mostrar en la vista. */
-		private function mostrarProblemaRegistro($string){
-			$vista = file_get_contents('app/Vistas/registro.html');
-			$diccionario = array(
-			'{tituloPagina}'=>"Registrarse",
-			'<!--{masLinks}-->' => '<link rel="stylesheet" type="text/css" href="recursos/js/social/bootstrap-social.css">');
-			$diccionarioProblema = array('<!-- Problema -->'=>'<span class="text-danger">'.$string.'</span>');
-			$vista = strtr($vista,$diccionarioProblema);
-			$this->head = strtr($this->head, $diccionario);
-			$vista = $this->head . $this->header . $vista . $this->footer;
-			echo $vista;
-		}
-
+		
 		/* Método para mostrar errores o problemas con la información recibida
 		 * @param $string, cadena con el texto a mostrar en la vista. */
 		private function mostrarProblemaIniciosesion($string){
