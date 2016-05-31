@@ -79,14 +79,10 @@ FB.getLoginStatus(function(response) {
 // Here we run a very simple test of the Graph API after login is
 // successful.  See statusChangeCallback() for when this call is made.
 function testAPI() {
-    var dataString = $("#formulario").serialize();
     $.ajax({
         type: 'POST',
-        url:'index.php',
-        data: dataString,
-        success: function(data){
-
-        }
+        url:'index.php?controlador=usuarios&act=inicioSesion',
+        data: dataString
     });
   /*FB.api('/me', function(response) {
     console.log('Successful login for: ' + response.name);

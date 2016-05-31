@@ -1,21 +1,24 @@
 
 		<div class="container">
-			<h3 class="encabezado">Lista de alumnos</h3>
+			<h3 class="encabezado">Lista de examenes</h3>
 			<!--{problema}-->
 			<div class="table-responsive center block" >
 				<table summary="" class="table table-hover table-striped" >
-					<caption>Usuarios registrados</caption>
+					<caption>Examenes registrados</caption>
 					<thead>
 						<tr>
-							<th class="botones" colspan="6">
+							<th class="botones" colspan="7">
 								<a href="#" class="btn btn-primary glyphicon glyphicon-save" title="Descargar lista"></a>
 								<a href="#" class="btn btn-default glyphicon glyphicon-list-alt" title="Descargar Excel"></a>
+								<a href="index.php?controlador=examenes&act=agregar" class="btn btn-primary glyphicon glyphicon-plus" title="Agregar examen"></a>
 							</th>
 
 						</tr>
 						<tr>
+                            <th style="display:none;"><!--{id}--></th>
 							<th>Nombre</th>
-							<th>Correo electrónico</th>
+							<th>Valor</th>
+							<th>Curso</th>
 							<th colspan="3">Acciones</th>
 							<th>Estado</th>
 						</tr>
@@ -23,8 +26,10 @@
 					<tbody>
 						<!--{usuarios}-->
 						<tr>
+                            <td style="display:none;"><!--{id}--></td>
 							<td><!--{nombre}--></td>
-							<td><!--{correo}--></td>
+							<td><!--{valor}--></td>
+							<td><!--{curso}--></td>
 							<td align="center"><a href="index.php?controlador=usuarios&act=eliminar&id=<!--{id}-->" title="Eliminar" class="glyphicon glyphicon-remove"></a></td>
 							<td align="center"><a href="index.php?controlador=usuarios&act=desactivar&id=<!--{id}-->" title="Desactivar" class="glyphicon glyphicon-remove-sign"></a></td>
 							<td align="center"><a href="index.php?controlador=usuarios&act=activar&id=<!--{id}-->" title="Activar" class="glyphicon glyphicon-ok"></a></td>

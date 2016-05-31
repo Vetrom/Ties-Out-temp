@@ -40,6 +40,20 @@
 
 					$head = strtr($head, $diccionario);
 
+							$inicioCurso = strrpos($vista, '<!--{inicioMasVistos}-->');
+							$finCurso    = strrpos($vista, '<!--{finMasVistos}-->') + 21;
+							$curso       = substr($vista, $inicioCurso, $finCurso - $inicioCurso);
+							//$listaCursos = Curso::
+							$cursosGrid = "";
+
+							for ($i=0; $i < 9; $i++) { 
+								$newCurso = $curso;
+
+								$cursosGrid .= $newCurso;			
+							}
+							
+							$vista = str_replace($curso, $cursosGrid, $vista);
+					
 					$vista = $head . $header . $vista . $footer;
 					echo $vista;
 				break;
@@ -50,6 +64,7 @@
 		}
 	}else{
 		require('app/Controladores/generalCtl.php');
+		require('app/Controladores/cursosCtl.php');
 		$generalctl = new General();
 
 		$head = file_get_contents('app/Vistas/head.html');
@@ -63,6 +78,19 @@
 
 		$head = strtr($head, $diccionario);
 
+		$inicioCurso = strrpos($vista, '<!--{inicioMasVistos}-->');
+		$finCurso    = strrpos($vista, '<!--{finMasVistos}-->') + 21;
+		$curso       = substr($vista, $inicioCurso, $finCurso - $inicioCurso);
+		//$listaCursos = Curso::
+		$cursosGrid = "";
+
+		for ($i=0; $i < 9; $i++) { 
+			$newCurso = $curso;
+
+			$cursosGrid .= $newCurso;			
+		}
+		
+		$vista = str_replace($curso, $cursosGrid, $vista);
 		$vista = $head . $header . $vista . $footer;
 		echo $vista;
 	}

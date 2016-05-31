@@ -20,7 +20,9 @@ class CursosMdl{
 
 	function traerCursos(){
 		$info ="";
-		$query = "SELECT  upper( vchNombre ) AS nombre, ltextContenido AS contenido FROM curso WHERE tiActivo =1 AND tiEliminado =0";
+		$query = "SELECT iidCurso AS id, upper( vchNombre ) AS nombre, ltextContenido AS contenido,
+				CASE WHEN tiActivo =1 THEN 'Curso activado' ELSE 'Curso desactivado' END as estado
+				FROM curso WHERE tiEliminado =0";
 		$resultado = $this->mysql->query($query);
 		while($fila = $resultado->num_rows){
 			if($fila > 0)
@@ -31,6 +33,29 @@ class CursosMdl{
 		return false;
 	}
 
+	function eliminarCursos($id){
+		$query = "UPDATE curso SET tiEliminado = 1, tiActivo = 0 WHERE iidCurso = $id";
+		if ($this->mysql->query($query) === TRUE) {
+			return true;
+		}
+		return false;
+	}
+
+	function desactivarCursos($id){
+		$query = "UPDATE curso SET tiActivo = 0 WHERE iidCurso = $id";
+		if ($this->mysql->query($query) === TRUE) {
+			return true;
+		}
+		return false;
+	}
+
+	function activarCursos($id){
+		$query = "UPDATE curso SET tiActivo = 1 WHERE iidCurso = $id";
+		if ($this->mysql->query($query) === TRUE) {
+			return true;
+		}
+		return false;
+	}
 
 }
 ?>

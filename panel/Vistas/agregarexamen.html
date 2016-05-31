@@ -1,0 +1,57 @@
+<div class="container">
+    <h3 class="encabezado">Agregar examen</h3>
+    <!--{problema}-->
+    <span class="clsError col-xs-12"></span>
+    <form action="index.php?controlador=examenes&act=guardar" method="post" id="agregarCurso" class="form-horizontal col-xs-12" role="form" novalidate="">
+        <div class="form-group col-xs-12 col-md-6">
+            <label for="titulo">Titulo</label>
+            <input name="titulo" id="titulo" class="form-control" placeholder="Titulo" >
+        </div>
+        <div class="form-group col-xs-12 col-md-6">
+            <label for="curso">Nombre del curso</label>
+            <span>  (al que pertenece el examen)</span>
+            <input name="curso" id="curso" class="form-control" placeholder="Nombre del curso" >
+        </div>
+        <section id="preguntas">
+            <div class="form-group col-xs-12">
+                <label id="labelPregunta" for="pregunta">Pregunta</label>
+                <input name="pregunta" id="pregunta" class="form-control" placeholder="Pregunta" >
+            </div>
+            <div class="form-group col-xs-12">
+                <label for="contenido">Respuesta</label>
+                <span class="text-mute">  (Seleccione del lado izquierdo la respuesta que será la correcta)</span>
+                <div class="col-xs-12 text-center">
+                    <input type="radio" name="opciones" id="opcion1" value="correcta">
+                    <div class="col-xs-11 pull-right">
+                        <input name="respuesta1" id="respuesta1" class="form-control" placeholder="Respuesta" >
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center">
+                    <input type="radio" name="opciones" id="opcion2" value="correcta">
+                    <div class="col-xs-11 pull-right">
+                        <input name="respuesta2" id="respuesta2" class="form-control" placeholder="Respuesta" >
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center">
+                    <input type="radio" name="opciones" id="opcion3" value="correcta">
+                    <div class="col-xs-11 pull-right">
+                        <input name="respuesta3" id="respuesta3" class="form-control" placeholder="Respuesta" >
+                    </div>
+                </div>
+                <div class="col-xs-12 text-center">
+                    <input type="radio" name="opciones" id="opcion4" value="correcta">
+                    <div class="col-xs-11 pull-right">
+                        <input name="respuesta4" id="respuesta4" class="form-control" placeholder="Respuesta" >
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="form-group col-xs-6 pull-left">
+            <button id="guardaCurso" name="guardaCurso" class="btn btn-primary pull-right" type="submit">Guardar</button>
+        </div>
+        <div class="form-group col-xs-6 pull-right">
+            <button id="otra" name="guardaCurso" class="btn btn-primary pull-right" type="submit">Agregar otra</button>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="../recursos/js/preguntas.js"></script>

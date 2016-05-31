@@ -73,6 +73,12 @@
 					case 'cerrarSesion':
 							$this->cerrarSesion();
 						break;
+					case 'actualizaPerfil':
+							$this->actualizaPerfil();
+						break;
+					case 'registraCurso':
+							$this->registraCurso();
+						break;
 					default:
 							require('404.html');
 						break;
@@ -88,31 +94,24 @@
 		*
 		*/
 		private function mostrarPerfil($id){
-			/*Conecta al modelo correspondiente para consultar con el ID al usuario*/
-			//require('app/Vistas/perfilPublico.html');
+			require('app/Modelo/usuarioMdl.php');
+			require('app/Modelo/cursosMdl.php');
+			$this->modelo = new UsuarioMdl($this->mysql);
+			$cursoModelo = new CursosMdl($this->mysql);
+
 			if(isset($_SESSION) && !empty($_SESSION)){
 				if($id >= 0){
 					$vista = file_get_contents("app/Vistas/perfilPublico.html");
 					//$footer
+					$resultado = $this->modelo->consultaPerfil($id);
 
 					$diccionarioUsuario = array(
-						'{correoUsuario}'   => $_SESSION['correo'],
-						'{nombreUsuario}'   => $_SESSION['nombre'],
-						'{ocupacionUsuario}'=> $_SESSION['ocupacion'],
-						'{cumpleUsuario}'   => $_SESSION['fechaNacimiento']);
+						'{correoUsuario}'   => $resultado['vchCorreo'],
+						'{nombreUsuario}'   => $resultado['vchNombre'],
+						'{ocupacionUsuario}'=> $resultado['vchOcupacion'],
+						'{cumpleUsuario}'   => $resultado['dfechaNacimiento']);
 
 					$vista = strtr($vista,$diccionarioUsuario);
-
-
-					$listaTitulos = array(
-						'Arbol',
-						'Algoritmos',
-						'otro');
-
-					$listaUrl = array(
-						'app/Vistas/curso1.php',
-						'app/Vistas/curso2.php',
-						'app/Vistas/curso2.php');
 
 					$inicioFila = strrpos($vista,'<!--{iniciaCurso}-->');
 					$finalFila = strrpos($vista,'<!--{terminaCurso}-->')+21;
@@ -120,24 +119,26 @@
 					$fila = substr($vista,$inicioFila,$finalFila-$inicioFila);
 					$filas = "";
 
+					$listaCursos = $cursoModelo->getMisCursos($_SESSION['idUsuario']);
+
 					$i = 0;
 
-					foreach ($listaTitulos as $row) {
+					foreach ($listaCursos as $row) {
 						$newFila = $fila;
 
 						$diccionario = array(
-							'{urlCurso}'=>$listaUrl[$i],
+							'{idcursourl}'=>$listaCursos[$i]['iidCurso'],
 							'{colorRandom}'=>'naranja',
-							'{Titulo}'=>$row,
+							'{Titulo}'=>$cursoModelo->traerCursos($listaCursos[$i]['iidCurso'])['vchNombre'],
 							'{tituloPagina}'=>"Perfil");
 
 						$newFila = strtr($newFila, $diccionario);
 						$filas .= $newFila;
 						$i++;
 					}
-
+					$this->head = str_replace('{tituloPagina}','Perfil', $this->head);
 					$vista = str_replace($fila,$filas, $vista);
-					$this->head = strtr($this->head,$diccionario);
+					//$this->head = strtr($this->head,$diccionario);
 					$vista = $this->head . $this->header . $vista . $this->footer;
 
 					echo $vista;
@@ -156,9 +157,26 @@
 					$diccionario = array(
 						'{tituloPagina}'=>"Configurar Perfil",
 						'{nombreUsuario}'=>$_SESSION['nombre'],
-						'{correo}'=>$_SESSION['correo']);
+						'{correo}'=>$_SESSION['correo'],
+						'{ocupacion}' => $_SESSION['ocupacion'],
+						'<!--{descripcion}-->' => $_SESSION['descripcion'],
+						'{fechaNacimiento}' => $_SESSION['fechaNacimiento']);
 
 					$this->head = strtr($this->head,$diccionario);
+
+					if(isset($_SESSION)){
+						if(strcmp($_SESSION['sexo'],"Femenino") === 0){
+							$vista = str_replace('{femeninoSelect}', 'selected="selected"', $vista);
+							$vista = str_replace('{masculinoSelect}', '', $vista);
+						}elseif (strcmp($_SESSION['sexo'], "Masculino")===0) {
+							$vista = str_replace('{masculinoSelect}', 'selected="selected"', $vista);
+							$vista = str_replace('{femeninoSelect}', '', $vista);
+						}else{
+							$vista = str_replace('{masculinoSelect}', '', $vista);
+							$vista = str_replace('{femeninoSelect}', '', $vista);
+						}
+					}
+
 					$vista = strtr($vista,$diccionario);
 					$vista = $this->head . $this->header . $vista . $this->footer;
 
@@ -293,7 +311,7 @@
 					$_SESSION['correo'] = $correo;
 					$_SESSION['contrasena'] = $contrasena;
 					$_SESSION['nombre'] = $resultado['vchNombre'];
-					$_SESSION['idUsuario'] = $resultado['iidUsuario'];
+					$_SESSION['idUsuario'] = $resultado['iidUsuario'];					
 					$_SESSION['ocupacion'] = $resultado['vchOcupacion'];
 					$_SESSION['fechaNacimiento'] = $resultado['dfechaNacimiento'];
 					$_SESSION['descripcion'] = $resultado['vchdescripcion'];
@@ -333,6 +351,67 @@
 				//No hay sesión iniciada
 			}
 		}
+
+		private function actualizaPerfil(){
+			require('app/Modelo/usuarioMdl.php');
+			$this->modelo = new UsuarioMdl($this->mysql);//se le manda la variable con la conexion establecida
+			if(empty($_POST) || empty($_SESSION)){
+				$this->mostrarProblemaRegistro("Favor de llenar los campos requeridos");
+			}else{
+				$nacimiento = $_POST["nacimiento"];
+				$sexo	= $_POST["sexo"];
+				$ocupacion = $_POST["ocupacion"];
+				$descripcion = $_POST["descripcion"];
+				$correo = $_SESSION['correo'];
+
+				//Revisa en la BD si el correo ya existe
+				if($this->modelo->existecorreo($correo)){					
+					$resultado = $this->modelo->actualiza($nacimiento, $sexo, $ocupacion, $descripcion, $_SESSION['idUsuario']);//damos de alta en la BD
+					if($resultado!==FALSE){//Si se pudo insertar muestra la vista											
+						$this->configuraPerfil($_SESSION['idUsuario']);
+							/*$vista = file_get_contents("app/Vistas/configuraPerfil.html");
+							$diccionario = array(
+							'{tituloPagina}'=>"Configurar Perfil");
+							$this->head = strtr($this->head,$diccionario);
+							$vista = $this->head . $this->header . $vista . $this->footer;
+							echo $vista;*/
+						
+					}
+					else{
+						$this->mostrarProblemaRegistro("No se pudo completar el registro, intente más tarde.");
+					}
+				}
+				else {
+					$this->mostrarProblemaRegistro("El correo ya existe, intente con otro");
+				}
+			}
+		}
+
+		private function registraCurso(){
+			if(isset($_SESSION) && !empty($_SESSION) && isset($_GET['idcurso'])){
+				require('app/Modelo/usuarioMdl.php');
+				$this->modelo = new UsuarioMdl($this->mysql);
+
+				//if($this->modelo->existeCUrso($_GET['idcurso']))
+				$resultado = $this->modelo->registraCursoUsuario($_SESSION['idUsuario'],$_GET['idcurso']);
+				if($resultado!==FALSE){//Si se pudo insertar muestra la vista
+												
+							$vista = file_get_contents("app/Vistas/home.html");
+							$diccionario = array(
+							'{tituloPagina}'=>"Inicio",
+							'<!--{masLinks}-->' => '<link rel="stylesheet" type="text/css" href="recursos/js/social/bootstrap-social.css">');
+							$this->head = strtr($this->head,$diccionario);
+							$vista = $this->head . $this->header . $vista . $this->footer;
+							echo $vista;						
+					}
+					else{
+						
+					}
+			}else{
+
+			}
+		}
+
 
 		/* Método para mostrar errores o problemas con la información recibida
 		 * @param $string, cadena con el texto a mostrar en la vista. */

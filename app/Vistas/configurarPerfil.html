@@ -3,7 +3,7 @@
 		<div class="content">
 			<h3 class=" encabezado">Configurar perfil</h3>
 			<div class="row">
-			<form method="post" id="perfil" name="perfil" class="form-horizontal col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-11 col-md-offset-1 col-md-11 col-lg-offset-1 col-lg-11" role="form" novalidate >
+			<form action="index.php?controlador=usuarios&act=actualizaPerfil" method="post" id="perfil" name="perfil" class="form-horizontal col-xs-offset-1 col-xs-11 col-sm-offset-1 col-sm-11 col-md-offset-1 col-md-11 col-lg-offset-1 col-lg-11" role="form" novalidate >
 
 				<div id="img" class="page-wrap form-group col-xs-10 col-sm-10 col-md-6 col-lg-6">
 					<label for="foto">Foto de perfil</label><br>
@@ -36,23 +36,23 @@
 					</div>
 					<div class="form-group">
 						<label for="nacimiento">Fecha de nacimiento </label>
-							<input id="nacimiento" name="nacimiento" class="form-control" type="text">
+							<input placeholder="DD/MM/AAAA" id="nacimiento" name="nacimiento" class="form-control" type="text" value="{fechaNacimiento}">
 					</div>
 					<div class="form-group">
 						<label for="sexo">Sexo </label>
 							<select id="sexo" name="sexo" class="form-control" type="text">
 								<option value="0">Seleccionar</option>
-								<option value="1">Femenino</option>
-								<option value="2">Masculino</option>
+								<option {femeninoSelect} value="Femenino">Femenino</option>
+								<option {masculinoSelect} value="Masculino">Masculino</option>
 							</select>
 					</div>
 					<div class="form-group">
 						<label for="ocupacion">Ocupación </label>
-							<input id="ocupacion" name="ocupacion" class="form-control" type="text">
+							<input value="{ocupacion}" id="ocupacion" name="ocupacion" class="form-control" type="text">
 					</div>
 					<div class="form-group">
 						<label for="descripcion">Descripción </label>
-							<textarea  id="descripcion" class="form-control" type="text"></textarea>
+							<textarea name="descripcion" id="descripcion" class="form-control" type="text"><!--{descripcion}--></textarea>
 					</div>
 				</div>
 				<div class="form-group" style="clear:both;">

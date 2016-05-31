@@ -15,6 +15,11 @@
 					$controlador = new Curso();
 					$bandera = true;
 				break;
+			case 'examenes':
+					require('Controladores/examenCtl.php');
+					$controlador = new Examen();
+					$bandera = true;
+				break;
 			default:
 					//require('app/Controladores/generalCtl.php');
 					//$generalctl = new General();

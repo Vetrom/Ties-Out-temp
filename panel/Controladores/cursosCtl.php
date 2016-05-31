@@ -42,6 +42,15 @@
 						case 'guardar':
 								$this->guardarCursos();
 							break;
+						case 'eliminar':
+								$this->eliminarCursos();
+							break;
+						case 'desactivar':
+								$this->desactivarCursos();
+							break;
+						case 'activar':
+								$this->activarCursos();
+							break;
 						default:
 							# code...
 							break;
@@ -66,17 +75,19 @@
 			foreach ($alumnos as $row) {
 				$new_fila = $fila;
 				$diccionarioCursos = array(
+					'<!--{id}-->' => $row['id'],
 					'<!--{nombre}-->' => $row['nombre'],
+					'<!--{estado}-->' => $row['estado'],
 					'<!--{descripcion}-->' => $row['contenido']);
-					$new_fila = strtr($new_fila,$diccionarioCursos);
-					$filas .= $new_fila;
-				}
-
+				$new_fila = strtr($new_fila,$diccionarioCursos);
+				$filas .= $new_fila;
+			}
 			//Reemplazo en mi vista una fila por todas las filas
 			$vista = str_replace($fila, $filas, $vista);
 			$diccionario = array(
 				'{tituloPagina}'=> "Cursos",
-				'<!--{masLinks}-->'=> '<link rel="stylesheet" type="text/css" href="../recursos/css/panel/simple-sidebar.css"/>');
+				'<!--{masLinks}-->'=> '<link rel="stylesheet" type="text/css" href="../recursos/css/panel/simple-sidebar.css"/>  <link rel="stylesheet" type="text/css" href="../recursos/js/paginacion/simplePagination.css"/>  <script type="text/javascript" src="../recursos/js/paginacion.js"></script>',
+				'<!--{otros}-->' => '<script type="text/javascript" src="../recursos/js/paginacion/jquery.simplePagination.js"></script>');
 
 			$this->head = strtr($this->head,$diccionario);
 			$vista = $this->head . $this->header . $vista . $this->footer;
@@ -121,6 +132,75 @@
 			}
 		}
 
+		private function eliminarCursos(){
+			require('Modelo/cursosMdl.php');
+			$this->modelo = new CursosMdl($this->mysql);
+			$id = $_GET['id'];
+			if($id == ""){
+				$this->mostrarProblemaC("Error al eliminar curso.");
+			}
+			else {
+				$resultado = $this->modelo->eliminarCursos($id);
+				if($resultado){
+					$vista = file_get_contents("Vistas/listas/cursos.html");
+					$diccionario = array(
+					'{tituloPagina}'=>"Cursos",
+					'<!--{otros}-->' => '<link rel="stylesheet" type="text/css" href="../recursos/css/panel/simple-sidebar.css">');
+					$this->head = strtr($this->head,$diccionario);
+					echo $this->head . $this->header . $vista . $this->footer;
+				}
+				else {
+					$this->mostrarProblemaC("No se puede eliminar el curso.");
+				}
+			}
+		}
+
+		private function desactivarCursos(){
+			require('Modelo/cursosMdl.php');
+			$this->modelo = new CursosMdl($this->mysql);
+			$id = $_GET['id'];
+			if($id == ""){
+				$this->mostrarProblemaC("Error al desactivar curso.");
+			}
+			else {
+				$resultado = $this->modelo->desactivarCursos($id);
+				if($resultado){
+					$vista = file_get_contents("Vistas/listas/cursos.html");
+					$diccionario = array(
+					'{tituloPagina}'=>"Cursos",
+					'<!--{otros}-->' => '<link rel="stylesheet" type="text/css" href="../recursos/css/panel/simple-sidebar.css">');
+					$this->head = strtr($this->head,$diccionario);
+					echo $this->head . $this->header . $vista . $this->footer;
+				}
+				else {
+					$this->mostrarProblemaC("No se puede desactivar el curso.");
+				}
+			}
+		}
+
+		private function activarCursos(){
+			require('Modelo/cursosMdl.php');
+			$this->modelo = new CursosMdl($this->mysql);
+			$id = $_GET['id'];
+			if($id == ""){
+				$this->mostrarProblemaC("Error al activar curso.");
+			}
+			else {
+				$resultado = $this->modelo->activarCursos($id);
+				if($resultado){
+					$vista = file_get_contents("Vistas/listas/cursos.html");
+					$diccionario = array(
+					'{tituloPagina}'=>"Cursos",
+					'<!--{otros}-->' => '<link rel="stylesheet" type="text/css" href="../recursos/css/panel/simple-sidebar.css">');
+					$this->head = strtr($this->head,$diccionario);
+					echo $this->head . $this->header . $vista . $this->footer;
+				}
+				else {
+					$this->mostrarProblemaC("No se puede activar el curso.");
+				}
+			}
+		}
+
 		private function mostrarProblema($string){
 			$vista = file_get_contents("Vistas/agregarcurso.html");
 			$diccionarioP = array(
@@ -128,6 +208,18 @@
 			$vista = strtr($vista,$diccionarioP);
 			$diccionario = array(
 			'{tituloPagina}'=>"Agregar cursos",
+			'<!--{otros}-->' => '<link rel="stylesheet" type="text/css" href="../recursos/css/panel/simple-sidebar.css">');
+			$this->head = strtr($this->head,$diccionario);
+			echo $this->head . $this->header . $vista . $this->footer;
+		}
+
+		private function mostrarProblemaC($string){
+			$vista = file_get_contents("Vistas/listas/cursos.html");
+			$diccionarioP = array(
+			'<!--{problema}-->' => '<h4 class="text-danger">'.$string.'</h4>');
+			$vista = strtr($vista,$diccionarioP);
+			$diccionario = array(
+			'{tituloPagina}'=>"Cursos",
 			'<!--{otros}-->' => '<link rel="stylesheet" type="text/css" href="../recursos/css/panel/simple-sidebar.css">');
 			$this->head = strtr($this->head,$diccionario);
 			echo $this->head . $this->header . $vista . $this->footer;
